@@ -1,5 +1,5 @@
-
 package com.storeManagement.Entity;
+
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
@@ -12,19 +12,18 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "OUTSTOCK_TBL")
-public class OutStockEntity {
+@Table(name = "MODEL_TBL")
+public class ModelEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long outStockId;
+    private Long modelId;
 
-    private String outStockName;
-    private String outStockCategory;
-    private String outStockDescription;
+    @Column(nullable = false, unique = true)
+    private String modelname;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "vendor_id", nullable = false)
     @JsonBackReference
-    private UserEntity user;
+    private VendorEntity vendor;
 }

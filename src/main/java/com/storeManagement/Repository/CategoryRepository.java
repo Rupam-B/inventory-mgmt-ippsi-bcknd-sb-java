@@ -1,10 +1,10 @@
 package com.storeManagement.Repository;
 
-import com.storeManagement.Entity.UserEntity;
+import com.storeManagement.Entity.CategoryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    UserEntity findByUserName(String userName);
+public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
 }
