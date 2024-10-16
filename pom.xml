@@ -35,8 +35,10 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.30</version> <!-- Match this with your MySQL version -->
 			<scope>runtime</scope>
 		</dependency>
+
 		<!-- Lombok for reducing boilerplate code -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
