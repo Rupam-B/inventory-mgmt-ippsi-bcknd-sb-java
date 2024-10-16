@@ -35,7 +35,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.30</version> <!-- Match this with your MySQL version -->
+<!--			<version>8.0.30</version> &lt;!&ndash; Match this with your MySQL version &ndash;&gt;-->
 			<scope>runtime</scope>
 		</dependency>
 
