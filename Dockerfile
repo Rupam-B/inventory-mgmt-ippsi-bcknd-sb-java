@@ -17,7 +17,8 @@ FROM openjdk:8-jdk-alpine
 WORKDIR /app
 
 # Copy the JAR file from the build stage to the runtime stage
-COPY --from=build /app/target/Store-Management-System.jar Store-Management-System.jar
+COPY --from=build /app/target/Store-Management-System-0.0.1-SNAPSHOT.jar Store-Management-System.jar
+
 
 # Expose the port the Spring Boot app runs on
 EXPOSE 8080
