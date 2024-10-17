@@ -22,8 +22,16 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+
+    @Column(nullable = false, unique = true)
     private String userName;
+
+
+    @Column(nullable = false) // Mandatory
     private String password;
+
+
+    @Column(nullable = false, unique = true) // Mandatory and unique
     private String mobile;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
