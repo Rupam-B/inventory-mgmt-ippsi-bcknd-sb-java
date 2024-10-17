@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/product-master")
-@CrossOrigin(origins = {"http://localhost:4200", "https://store-mgmt-ang-sbjava.netlify.app","http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:4200", "https://inventory-mgmt-ipssi-rct.netlify.app","http://localhost:3000"})
 public class ProductMasterController {
 
     @Autowired

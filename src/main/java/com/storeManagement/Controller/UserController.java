@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000","https://store-mgmt-ang-sbjava.netlify.app"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000","https://inventory-mgmt-ipssi-rct.netlify.app"})
 public class UserController {
 
     @Autowired
