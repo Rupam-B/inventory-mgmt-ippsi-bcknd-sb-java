@@ -58,6 +58,14 @@ public class StockController {
 //        return ResponseEntity.ok(updatedStock);
 //    }
 
+    @GetMapping("/user/{userId}/status/{statusID}")
+    public List<StockResponseDTO> getDevicesByUserAndStatus(
+            @PathVariable Long userId,
+            @PathVariable Long statusID) {
+        return  stockService.getDevicesByUserAndStatus(userId, statusID);
+
+    }
+
     // Endpoint to delete stock by ID
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteStock(@PathVariable Long id) {

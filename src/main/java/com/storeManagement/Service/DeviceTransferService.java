@@ -31,6 +31,7 @@ public class DeviceTransferService {
                 transferDevice.setProductMaster(stockDevice.getProductMaster());
                 transferDevice.setSerialNumber(stockDevice.getSerialNumber());
                 transferDevice.setDeviceStatus(stockDevice.getDeviceStatus());
+                transferDevice.setDesctription(stockDevice.getDescription());
                 transferDevice.setProductPurchaseDate(stockDevice.getProductPurchaseDate());
 
                 // Fetch the destination user from the UserRepository
@@ -62,7 +63,7 @@ public class DeviceTransferService {
     }
 
 
-    public void markAsReceived(Long transferId) {
+    public void markAsReceived(Long transferId,String description) {
 
         TransferEntity transferEntity = transferRepository.findById(transferId)
                 .orElseThrow(() -> new RuntimeException("Transfer record not found"));
@@ -72,6 +73,7 @@ public class DeviceTransferService {
         newStock.setProductMaster(transferEntity.getProductMaster());
         newStock.setSerialNumber(transferEntity.getSerialNumber());
         newStock.setDeviceStatus(transferEntity.getDeviceStatus());
+        newStock.setDescription(description);
         newStock.setProductPurchaseDate(transferEntity.getProductPurchaseDate());
 
 

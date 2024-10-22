@@ -22,8 +22,13 @@ public class ProductMaster {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
 
+   @Column(nullable = false)
     private String productVendor;
+
+    @Column(nullable = false)
     private String productModel;
+
+    @Column(nullable = false)
     private String productCategory;
 
 

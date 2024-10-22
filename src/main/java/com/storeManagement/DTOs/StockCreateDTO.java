@@ -1,9 +1,11 @@
 package com.storeManagement.DTOs;
 
+import com.storeManagement.Entity.DeviceStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import java.time.LocalDate;
 
 @Data
@@ -17,7 +19,9 @@ public class StockCreateDTO {
 
     private String serialNumber;
 
-    private String deviceStatus;
+    private Long statusId;
+
+    private String description;
 
     private LocalDate productPurchaseDate;
 

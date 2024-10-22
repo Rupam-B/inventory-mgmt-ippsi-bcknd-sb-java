@@ -31,8 +31,12 @@ public class StockEntity {
     @Column(nullable = false, unique = true)
     private String serialNumber;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "device_status_id", nullable = false)
+    private DeviceStatus deviceStatus;
+
     @Column(nullable = false)
-    private String deviceStatus;
+    private String description;
 
     @Column(nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

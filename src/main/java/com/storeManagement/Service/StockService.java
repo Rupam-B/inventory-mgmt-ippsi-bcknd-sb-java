@@ -5,9 +5,11 @@ package com.storeManagement.Service;
 import com.storeManagement.AdditionalFunctionalClass.StockConverter;
 import com.storeManagement.DTOs.StockCreateDTO;
 import com.storeManagement.DTOs.StockResponseDTO;
+import com.storeManagement.Entity.DeviceStatus;
 import com.storeManagement.Entity.ProductMaster;
 import com.storeManagement.Entity.StockEntity;
 import com.storeManagement.Entity.UserEntity;
+import com.storeManagement.Repository.DeviceStatusRepository;
 import com.storeManagement.Repository.ProductMasterRepository;
 import com.storeManagement.Repository.StockRepository;
 import com.storeManagement.Repository.UserRepository;
@@ -33,18 +35,24 @@ public class StockService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    DeviceStatusRepository deviceStatusRepository;
+
     private final StockConverter stockConverter = new StockConverter();
 
 
     public StockResponseDTO addStock(StockCreateDTO newstock) {
+
         UserEntity user = userRepository.findById(newstock.getUsersId()).orElseThrow(() -> new RuntimeException("User not found"));
         ProductMaster productMaster = productMasterRepository.findById(newstock.getProductId()).orElseThrow(() -> new RuntimeException("Product not found"));
+        DeviceStatus deviceStatus = deviceStatusRepository.findById(newstock.getStatusId()).orElseThrow(() -> new RuntimeException("Device Status not found"));
 
         StockEntity stock = new StockEntity();
         stock.setUser(user);
         stock.setProductMaster(productMaster);
         stock.setSerialNumber(newstock.getSerialNumber());
-        stock.setDeviceStatus(newstock.getDeviceStatus());
+        stock.setDeviceStatus(deviceStatus);
+        stock.setDescription(newstock.getDescription());
         stock.setProductPurchaseDate(newstock.getProductPurchaseDate());
 
 
@@ -104,6 +112,17 @@ public class StockService {
 //            throw new RuntimeException("Stock item not found with id: " + stockId);
 //        }
 //    }
+
+
+
+    public List<StockResponseDTO> getDevicesByUserAndStatus(Long userId, Long statusId) {
+        List<StockEntity> stockEntities= stockRepository.findAllByUserAndDeviceStatusId(userId, statusId);
+
+        return stockEntities.stream()
+                .map(stockConverter::convertToStockResponseDTO)
+                .collect(Collectors.toList());
+    }
+
 
     // Delete stock item by ID
     public void deleteStock(Long stockId) {

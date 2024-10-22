@@ -23,10 +23,10 @@ public class VendorEntity {
     @Column(nullable = false,unique = true)
     private String vendorName;
 
-    @Column
+    @Column(nullable = false)
     private String vendorAddress;
 
-    @Column
+    @Column(nullable = false)
     private Long vendorMobile;
 
     @OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -15,6 +15,7 @@ public class StockConverter {
         dto.setStockId(stock.getStockId());
         dto.setSerialNumber(stock.getSerialNumber());
         dto.setDeviceStatus(stock.getDeviceStatus());
+        dto.setDescription(stock.getDescription());
         dto.setProductPurchaseDate(stock.getProductPurchaseDate());
 
         // Set product details from ProductMaster

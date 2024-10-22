@@ -51,8 +51,8 @@ public class TransferController {
     }
 
     @PutMapping("/mark-as-received/{transferId}")
-    public ResponseEntity<?> markAsReceived(@PathVariable Long transferId) {
-        deviceTransferService.markAsReceived(transferId);
+    public ResponseEntity<?> markAsReceived(@PathVariable Long transferId, @RequestBody String description) {
+        deviceTransferService.markAsReceived(transferId,description);
         return ResponseEntity.ok("Transfer marked as received and stock updated.");
     }
 
