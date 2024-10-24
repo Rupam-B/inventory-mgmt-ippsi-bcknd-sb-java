@@ -1,8 +1,8 @@
-
+# Stage 1: Build the Spring Boot application
 FROM maven:3.8.6-jdk-8 AS build
 
 # Set the working directory in the container for building
-#WORKDIR /app
+WORKDIR /app
 
 # Copy the pom.xml and project files to the container
 COPY . .
@@ -17,16 +17,13 @@ FROM openjdk:8-jdk-alpine
 #WORKDIR /app
 
 # Copy the JAR file from the build stage to the runtime stage
-COPY --from=build /target/Store-Management-System-0.0.1-SNAPSHOT.jar Store-Management-System.jar
-
+COPY --from=build /app/target/Store-Management-System-0.0.1-SNAPSHOT.jar Store-Management-System.jar
 
 # Expose the port the Spring Boot app runs on
 EXPOSE 8080
 
-# Run the JAR file
-ENTRYPOINT ["java", "-jar", "Store-Management-System.jar"]
+# Set JVM options (garbage collector settings and memory limits)
+ENV JAVA_OPTS="-XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xmx256m -Xms128m"
 
-#FROM openjdk:8-jdk-alpine
-#COPY /target/*.jar app.jar
-#ENTRYPOINT ["java","-jar","/app.jar"]
-#EXPOSE 8080
+# Run the JAR file with JVM options
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar Store-Management-System.jar"]
