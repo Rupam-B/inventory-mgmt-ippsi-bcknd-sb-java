@@ -51,12 +51,12 @@ public class StockController {
         return stockService.getStockBySerialNumber(serialNumber);
     }
 
-    // Endpoint to update stock
-//    @PutMapping("/update/{id}")
-//    public ResponseEntity<StockEntity> updateStock(@PathVariable Long id, @RequestBody StockEntity stock) {
-//        StockEntity updatedStock = stockService.updateStock(id, stock);
-//        return ResponseEntity.ok(updatedStock);
-//    }
+//     Endpoint to update stock
+    @PutMapping("/update/{id}")
+    public ResponseEntity<StockResponseDTO> updateStock(@PathVariable Long id, @RequestBody StockCreateDTO stock) {
+        StockResponseDTO updatedStock = stockService.updateStock(id, stock);
+        return ResponseEntity.ok(updatedStock);
+    }
 
     @GetMapping("/user/{userId}/status/{statusID}")
     public List<StockResponseDTO> getDevicesByUserAndStatus(

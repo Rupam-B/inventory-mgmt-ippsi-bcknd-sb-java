@@ -100,18 +100,42 @@ public class StockService {
 
 
 
-//    public StockEntity updateStock(Long stockId, StockEntity updatedStock) {
-//        Optional<StockEntity> existingStockOpt = stockRepository.findById(stockId);
-//        if (existingStockOpt.isPresent()) {
-//            StockEntity existingStock = existingStockOpt.get();
-//            existingStock.setSerialNumber(updatedStock.getSerialNumber());
-//            existingStock.setDeviceStatus(updatedStock.getDeviceStatus());
-//            existingStock.setUser(updatedStock.getUser());  // Update the user assignment if necessary
-//            return stockRepository.save(existingStock);
-//        } else {
-//            throw new RuntimeException("Stock item not found with id: " + stockId);
-//        }
-//    }
+    public StockResponseDTO updateStock(Long stockId, StockCreateDTO updatedStockDTO) {
+        StockEntity existingStock = stockRepository.findById(stockId)
+                .orElseThrow(() -> new RuntimeException("Stock item not found with id: " + stockId));
+
+        // Update fields if they are provided in the DTO
+
+        if (updatedStockDTO.getSerialNumber() != null) {
+            existingStock.setSerialNumber(updatedStockDTO.getSerialNumber());
+        }
+        if (updatedStockDTO.getStatusId() != null) {
+            DeviceStatus deviceStatus = deviceStatusRepository.findById(updatedStockDTO.getStatusId())
+                    .orElseThrow(() -> new RuntimeException("Device Status not found"));
+            existingStock.setDeviceStatus(deviceStatus);
+        }
+        if (updatedStockDTO.getUsersId() != null) {
+            UserEntity user = userRepository.findById(updatedStockDTO.getUsersId())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+            existingStock.setUser(user);
+        }
+        if (updatedStockDTO.getDescription() != null) {
+            existingStock.setDescription(updatedStockDTO.getDescription());
+        }
+        if (updatedStockDTO.getProductId() != null) {
+            ProductMaster productMaster = productMasterRepository.findById(updatedStockDTO.getProductId())
+                    .orElseThrow(() -> new RuntimeException("Product not found"));
+            existingStock.setProductMaster(productMaster);
+        }
+
+        if (updatedStockDTO.getProductPurchaseDate() != null) {
+            existingStock.setProductPurchaseDate(updatedStockDTO.getProductPurchaseDate());
+        }
+
+        StockEntity savedStock = stockRepository.save(existingStock);
+        return stockConverter.convertToStockResponseDTO(savedStock);
+    }
+
 
 
 
