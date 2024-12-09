@@ -4,6 +4,7 @@ import com.storeManagement.DTOs.TransferRequestDTO;
 import com.storeManagement.Entity.TransferEntity;
 import com.storeManagement.Service.DeviceTransferService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,6 +55,16 @@ public class TransferController {
     public ResponseEntity<?> markAsReceived(@PathVariable Long transferId, @RequestBody String description) {
         deviceTransferService.markAsReceived(transferId,description);
         return ResponseEntity.ok("Transfer marked as received and stock updated.");
+    }
+
+    @DeleteMapping("deleteTransfer/{transferId}")
+    public ResponseEntity<String> deleteTransfer(@PathVariable Long transferId) {
+        try {
+            deviceTransferService.deleteTransferRequest(transferId);
+            return ResponseEntity.ok("Transfer request deleted successfully.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
 }

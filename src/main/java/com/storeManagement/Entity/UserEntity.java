@@ -27,12 +27,15 @@ public class UserEntity {
     private String userName;
 
 
-    @Column(nullable = false) // Mandatory
+    @Column(nullable = false)
     private String password;
 
 
-    @Column(nullable = false, unique = true) // Mandatory and unique
+    @Column(nullable = false, unique = true)
     private String mobile;
+
+    @Column(nullable = false, unique = true)
+    private String location;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
